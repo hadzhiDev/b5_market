@@ -2,6 +2,9 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import (AllowAny, IsAdminUser, 
                                         IsAuthenticatedOrReadOnly, 
                                         IsAuthenticated)
+from rest_framework import filters
+
+from django_filters.rest_framework import DjangoFilterBackend 
 
 from market.models import Tag, Category, Product, ProductImage, ProductAttribute
 from market.serializers import TagSerializer, CategorySerializer, ProductSerializer, ProductImageSerializer, \
@@ -21,7 +24,7 @@ class CategoryViewSet(ModelViewSet):
 
 
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all() 
     serializer_class = ProductSerializer
     permission_classes = (IsAdminUser)
 
@@ -33,6 +36,12 @@ class ProductViewSet(ModelViewSet):
         elif self.action in ['list', 'retrieve']:
             self.permission_classes = [AllowAny]
         return super().get_permissions()
+    
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['category', 'tags', 'is_published']
+    ordering_fields = ['created_at', 'price']
+    search_fields = ['name', 'description']
+    ordering = ('-created_at',)
 
 
 class ProductImageViewSet(ModelViewSet):
