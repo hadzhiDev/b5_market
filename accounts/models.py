@@ -2,6 +2,7 @@ from django.contrib.auth.models import Permission
 from django.contrib.auth.models import Group
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.timezone import now
 
 from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
@@ -39,3 +40,18 @@ class User(AbstractUser):
         return f'{self.get_full_name or str(self.email)}'
 
 
+class OTPVerification(models.Model):
+    email = models.EmailField(verbose_name='электронная почта', blank=True, null=True)
+    otp = models.CharField(max_length=4)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
+
+    def is_expired(self):
+        return (now() - self.created_at).seconds > 300 
+
+    def __str__(self):
+        return f"{self.email} - {self.otp} ({self.created_at})"
+    
+    class Meta:
+        verbose_name = 'код подтверждения'
+        verbose_name_plural = 'коды подтверждения'
+        ordering = ('-created_at',)

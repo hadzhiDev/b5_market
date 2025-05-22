@@ -46,3 +46,18 @@ class ChangePasswordSerializer(serializers.Serializer):
 
     old_password = serializers.CharField(required=True,)
     new_password = serializers.CharField(required=True, validators=[validate_password])
+
+
+class SendResetPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=False)
+    
+
+class VerifyPasswordResetOTPSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=False)
+    otp = serializers.CharField(max_length=4)
+
+
+class ResetPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=False)
+    otp = serializers.CharField(max_length=4)
+    new_password = serializers.CharField(write_only=True, min_length=6)

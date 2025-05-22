@@ -38,7 +38,7 @@ class ProductViewSet(ModelViewSet):
         return super().get_permissions()
     
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['category', 'tags', 'is_published']
+    # filterset_fields = ['category', 'tags', 'is_published']
     ordering_fields = ['created_at', 'price']
     search_fields = ['name', 'description']
     ordering = ('-created_at',)

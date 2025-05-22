@@ -134,5 +134,19 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 AUTH_USER_MODEL = 'accounts.User'
+
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_USE_TLS = json.loads(config('EMAIL_USE_TLS'))
+# EMAIL_USE_SSL = json.loads(config('EMAIL_USE_SSL'))
+# EMAIL_PORT = int(config('EMAIL_PORT'))
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_USE_TLS=True
+# EMAIL_USE_SSL='false'
+EMAIL_PORT='587'
+EMAIL_HOST_USER='hadzhi.00703@gmail.com'
+EMAIL_HOST_PASSWORD='cwthdinocznlqims'

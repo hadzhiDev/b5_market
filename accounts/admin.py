@@ -2,7 +2,22 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from .models import User
+from .models import User, OTPVerification
+
+
+@admin.register(OTPVerification)
+class OTPVerificationAdmin(admin.ModelAdmin):
+    list_display = ('email', 'otp', 'created_at')
+    list_display_links = ('email', 'otp')
+    search_fields = ('email', 'otp')
+    ordering = ('-created_at',)
+    readonly_fields = ('created_at',)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(User)
