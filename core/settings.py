@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'corsheaders',
     'market',
     'accounts',
     'rest_framework',
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -61,7 +62,9 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -150,3 +153,28 @@ EMAIL_USE_TLS=True
 EMAIL_PORT='587'
 EMAIL_HOST_USER='hadzhi.00703@gmail.com'
 EMAIL_HOST_PASSWORD='cwthdinocznlqims'
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+    'x-csrftoken',
+    'x-requested-with',
+    'accept',
+    'accept-encoding',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://movie.pythonanywhere.com',
+    'http://movie.pythonanywhere.com',
+    'http://localhost',
+    'http://localhost:8000',
+    'http://0.0.0.0:8000',
+    'http://0.0.0.0:8001',
+    'http://localhost:3000',
+    'http://127.0.0.1',
+    'http://127.0.0.1:3000',
+]
+
+
+CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
